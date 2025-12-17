@@ -26,3 +26,12 @@ jobs:
       - name: Run tests
         run: |
           pytest #Or any other command to execute your tests
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.Dupon11}}
+          password: ${{ secrets.KEY_12345 }} # Make sure this name matches your GitHub Secret
+      - name: Push image to Docker Hub
+        run: |
+          docker tag ${{ github.repository }}:${{ github.sha }} ${{ secrets.Dupon11 }}/${{ github.repository }}:${{ github.sha }}
+          docker push ${{ secrets.Dupon11 }}/${{ github.repository }}:${{ github.sha }}
